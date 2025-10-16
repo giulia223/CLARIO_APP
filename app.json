@@ -1,29 +1,32 @@
 {
   "expo": {
-    "name": "aplicatia_todo",
-    "slug": "aplicatia_todo",
+    "scheme": "aplicatia-todo",
+    "name": "aplicatia-todo",
+    "slug": "aplicatia-todo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Images/logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
+    "plugins": [
+      "expo-router",
+      "expo-web-browser"
+    ]
+  },
+  "ios": {
+    "supportsTablet": true
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+    "edgeToEdgeEnabled": true
+  },
+  "web": {
+    "favicon": "./assets/Images/logo.png"
+  },
+  "plugins": [
+    "expo-router"
+  ]
 }
