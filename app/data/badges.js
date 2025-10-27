@@ -42,12 +42,7 @@ const AllBadges = [
     image: require("../../assets/Images/badges/write_2995493.png"), 
     unlockAt: 1 
   },
-  // { 
-  //   id: 2, 
-  //   name: "Incepator", 
-  //   image: require("../../assets/Images/badges/"), 
-  //   unlockAt: 1 
-  // },
+  
 
 ];
 

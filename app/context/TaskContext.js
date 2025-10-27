@@ -1,8 +1,8 @@
 import React, { createContext, useState, useContext, useRef } from "react";
 import { Alert } from "react-native";
-import AllBadges from "./data/badges";
-import { useGoogleAuth } from './googleAuth';
-import { addEventToGoogleCalendar } from './googlecalendar';
+import AllBadges from "../data/badges";
+import { useGoogleAuth } from '../hooks/googleAuth';
+import { addEventToGoogleCalendar } from '../services/googlecalendar';
 export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {

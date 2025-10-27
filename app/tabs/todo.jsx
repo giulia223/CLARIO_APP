@@ -92,36 +92,45 @@ import React, { useContext, useState } from "react";
 import { View, Text, TextInput, Button, FlatList, TouchableOpacity, Dimensions } from "react-native";
 import Checkbox from "expo-checkbox";
 import * as Progress from "react-native-progress";
-import { TaskContext } from "../TaskContext";
-import { useGoogleAuth } from "../googleAuth"; // ✅ importam hook-ul
+import { TaskContext } from "../context/TaskContext";
+import { useGoogleAuth } from "../hooks/googleAuth"; // ✅ importam hook-ul
 
 export default function TodoPage() {
   const { tasks, addTask, deleteTask, toggleTask } = useContext(TaskContext);
   const [newTask, setNewTask] = useState("");
-  const { promptAsync } = useGoogleAuth(); // ✅ luam functia de logare Google
+  const { promptAsync, accessToken, request } = useGoogleAuth();
 
   const completedCount = tasks.filter((t) => t.completed).length;
   const totalCount = tasks.length;
   const progress = totalCount > 0 ? completedCount / totalCount : 0;
 
-  // 🔹 Functia care adauga task si il sincronizeaza cu Google Calendar
-  const handleAddTask = async () => {
-    if (!newTask.trim()) return;
+ const handleAddTask = async () => {
+  if (!newTask.trim()) return;
 
-    // 1️⃣ Deschide login Google
-    const result = await promptAsync();
+  // ⚠️ Asigură-te că request-ul e pregătit
+  if (!request) {
+  console.log("⏳ Asteapta un moment, se initializeaza autentificarea Google...");
+  setTimeout(handleAddTask, 500); // reincerca dupa jumatate de secunda
+  return;
+}
 
-    if (result?.type === "success") {
-      const token = result.params.access_token;
-      console.log("✅ Google token:", token);
 
-      // 2️⃣ Adauga task + sincronizare
-      await addTask(newTask, token);
-      setNewTask("");
-    } else {
-      console.warn("⚠️ Logare Google anulata sau esuata");
-    }
-  };
+  // 1️⃣ Deschide autentificarea Google
+  const result = await promptAsync();
+
+  // 2️⃣ Verifică dacă userul a acceptat
+  if (result?.type === "success") {
+    const token = result.params.access_token;
+    console.log("✅ Google token:", token);
+
+    // 3️⃣ Adaugă task-ul și sincronizează cu Calendar
+    await addTask(newTask, token);
+    setNewTask("");
+  } else {
+    console.warn("⚠️ Logare Google anulata sau esuata");
+  }
+};
+
 
   return (
     <View style={{ padding: 20 }}>

@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Linking, Button, TextInput , Modal, ScrollView} from 'react-native';
-import { useMood } from '../MoodContext';
+import { useMood } from '../context/MoodContext';
 import { Audio } from "expo-av";
 
 const videoData = {

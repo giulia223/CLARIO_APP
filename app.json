@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "gpl12",
     "scheme": "aplicatia-todo",
     "name": "aplicatia-todo",
     "slug": "aplicatia-todo",

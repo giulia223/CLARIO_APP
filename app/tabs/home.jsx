@@ -4,8 +4,8 @@ import ToastMessage from '../components/toastMsg'; // Asigură-te că calea este
 import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Stars from 'react-native-stars';
-import { useMood } from '../MoodContext';
-import { useTasks } from "../TaskContext";
+import { useMood } from '../context/MoodContext';
+import { useTasks } from "../context/TaskContext";
 
 
 

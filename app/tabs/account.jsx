@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Dimensions, Image, screenHeight} from "react-native";
 import { BarChart } from "react-native-chart-kit";
-import { useTasks } from "../TaskContext"
+import { useTasks } from "../context/TaskContext"
 import { badges } from "../data/badges";
 
 export default function Account() {

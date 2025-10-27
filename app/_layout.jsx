@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { MoodProvider } from './MoodContext';
-import { TaskProvider } from './TaskContext';
+import { MoodProvider } from '../context/MoodContext';
+import { TaskProvider } from '../context/TaskContext';
 import { Dimensions } from 'react-native';
 const screenHeight = Dimensions.get('window').height;
 
