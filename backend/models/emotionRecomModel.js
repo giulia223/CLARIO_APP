@@ -6,7 +6,7 @@ const recommendationSchema = new mongoose.Schema({
   videos: [
     {
       title: String,
-      url: String, // link catre YouTube / Vimeo / alta sursa
+      url: String, 
     },
   ],
 });

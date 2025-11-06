@@ -33,7 +33,7 @@ export const updateTask = async (req, res) => {
     try{
         const { id } = req.params;
         const updates = req.body;
-        updates.updatedAt = Date.now; //fara paranteze => apel dinamic!!
+        updates.updatedAt = Date.now(); // call function
         const updated = await Task.findByIdAndUpdate(id, updates, { new: true});
         if(!updated) return res.status(404).json({ message: 'task not found'});
         res.json(updated);
@@ -52,7 +52,7 @@ export const deleteTask = async (req, res) => {
         res.json({ message: 'task deleted'});
     } catch(err){
         console.error('deleteTask error', err);
-        res.status(505).json({ message: 'server error deleting task'});
+        res.status(500).json({ message: 'server error deleting task'});
     }
 };
 

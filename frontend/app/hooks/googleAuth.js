@@ -38,10 +38,11 @@ console.log('🔗 redirectUri:', redirectUri);
       setAccessToken(access_token);
       console.log('✅ Token primit:', access_token);
     } else if (response) {
-      console.log('⚠️ Raspuns auth:', response);
+      console.log('⚠️ Auth response:', response);
     }
   }, [response]);
 
   return { promptAsync, accessToken, request };
 }
 
+export default function __NonRouteGoogleAuth() { return null }

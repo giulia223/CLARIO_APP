@@ -1,25 +1,17 @@
+import { googleCalendarAPI } from './api';
+
 export async function addEventToGoogleCalendar(taskText, date, accessToken) {
   const start = new Date(date);
   const end = new Date(date.getTime() + 60 * 60 * 1000); // +1h
 
-  const event = {
+  const eventData = {
+    token: accessToken,
     summary: taskText,
-    start: { dateTime: start.toISOString() },
-    end: { dateTime: end.toISOString() },
+    start: start.toISOString(),
+    end: end.toISOString(),
   };
 
-  const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(event),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to add event to Google Calendar');
-  }
-
-  return await response.json();
+  return await googleCalendarAPI.addEvent(eventData);
 }
+
+export default function __NonRouteGoogleCalendar() { return null }

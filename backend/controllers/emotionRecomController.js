@@ -6,7 +6,7 @@ import emotionRecom from "../models/emotionRecomModel.js";
 
 export const getAllEmotions = async (req, res) => {
   try {
-    const emotions = await EmotionRecommendation.find();
+    const emotions = await emotionRecom.find();
     res.json(emotions);
   } catch (err) {
     res.status(500).json({ message: "Eroare la obținerea recomandărilor", error: err.message });
@@ -17,7 +17,7 @@ export const getAllEmotions = async (req, res) => {
 export const getEmotionByMood = async (req, res) => {
   try {
     const { mood } = req.params; 
-    const emotion = await EmotionRecommendation.findOne({ mood });
+    const emotion = await emotionRecom.findOne({ mood });
 
     if (!emotion) {
       return res.status(404).json({ message: "Nu există recomandări pentru această emoție" });
@@ -34,12 +34,12 @@ export const getEmotionByMood = async (req, res) => {
 
 export const updateEmotion = async (req, res) => {
   try {
-    const { mood } = req.params;
-    const { videos } = req.body;
+    const { id } = req.params;
+    const updates = req.body;
 
-    const updatedEmotion = await EmotionRecommendation.findOneAndUpdate(
-      { mood },
-      { videos },
+    const updatedEmotion = await emotionRecom.findByIdAndUpdate(
+      id,
+      updates,
       { new: true }
     );
 

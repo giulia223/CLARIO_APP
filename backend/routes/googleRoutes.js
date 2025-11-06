@@ -3,12 +3,14 @@ import {
   getAuthUrl,
   googleCallback,
   addEventToGoogleCalendar,
+  startAuthRedirect,
 } from "../controllers/googleController.js";
 
 const router = express.Router();
 
-router.get("/auth", getAuthUrl); // 1️⃣ Cere link de login
-router.get("/callback", googleCallback); // 2️⃣ Prinde redirectul Google
-router.post("/add-event", addEventToGoogleCalendar); // 3️⃣ Adaugă eveniment
+router.get("/auth", getAuthUrl); 
+router.get("/start", startAuthRedirect); 
+router.get("/callback", googleCallback); 
+router.post("/add-event", addEventToGoogleCalendar); 
 
 export default router;

@@ -6,6 +6,9 @@ import { TouchableOpacity } from 'react-native';
 import Stars from 'react-native-stars';
 import { useMood } from '../context/MoodContext';
 import { useTasks } from "../context/TaskContext";
+import Card from '../components/ui/Card';
+import { Title, Subtitle, Body } from '../components/ui/StyledText';
+import { theme } from '../theme';
 
 
 
@@ -50,15 +53,15 @@ const Home = () => {
   const handleMood =  (mood) => {
     if (mood === 'happy') {
       showToast('Keep up the positive vibes! 😄');
-      setQuestion('what made you happy today?')
+      setQuestion('What made you happy today?')
       setMood(mood); 
     } else if (mood === 'sad') {
-      showToast('Suntem aici să te ajutăm să te simți mai bine! 😕');
-      setQuestion('what s on your mind?')
+      showToast("We're here to help you feel better! 😕");
+      setQuestion("What's on your mind?")
       setMood(mood); 
     } else if (mood === 'lazy') {
-      showToast('E în regulă să te simți leneș! Fii blând cu tine. 😴');
-      setQuestion('what would motivate you?')
+      showToast("It's okay to feel low-energy. Be kind to yourself. 😴");
+      setQuestion('What would motivate you?')
       setMood(mood); 
     }
   }
@@ -93,15 +96,14 @@ const Home = () => {
         onDismiss={() => setToastVisible(false)}
       />
 
-      <View style={[styles.row, { height: '10%' }]}>
-       <View style={styles.box}>
-        <Text style={styles.citat}> {currentDate}</Text>
-       </View>
-      </View>
+      <Card style={{ marginBottom: 20 }}>
+        <Title style={{ marginBottom: 6 }}>Welcome!</Title>
+        <Subtitle>{currentDate}</Subtitle>
+      </Card>
 
-      <View>
-      <Text style={styles.text}>How are u feeling today?</Text>
-        <View style={styles.emojiContainer}> {}
+      <Card style={{ marginBottom: 20 }}>
+        <Subtitle style={{ marginBottom: 10 }}>How are you feeling today?</Subtitle>
+        <View style={styles.emojiContainer}>
 
           <TouchableOpacity onPress={() => handleMood("happy")}>
             <Text style={styles.emoji}>😄</Text>
@@ -116,36 +118,28 @@ const Home = () => {
           </TouchableOpacity>
 
         </View>
-      </View>
+      </Card>
 
-      <View style={styles.row}>
-        <View style={styles.box}>
-          <Text style={styles.list}>Today highlights </Text>
-          
-          {tasksToday && tasksToday.length > 0 ? (
-            tasks.slice(0, 3).map((task, index)=>(
-            tasksToday.map((task, index) => (
-              <Text key={index} style={styles.list}></Text>
-            ))
-            ))
-          )  : (
-            <Text style={{ fontStyle: 'italic', color: 'gray' }}>
-              You are free! 🎉
-           </Text>
-          )}
-        </View>  
-      </View>
+      <Card style={{ marginBottom: 20 }}>
+        <Subtitle style={{ marginBottom: 10 }}>Today highlights</Subtitle>
+        {tasksToday && tasksToday.length > 0 ? (
+          tasksToday.slice(0, 3).map((task, index) => (
+            <Body key={task._id || task.id || index} style={{ marginBottom: 6 }}>• {task.text}</Body>
+          ))
+        )  : (
+          <Body style={{ fontStyle: 'italic', color: '#A7B0C4' }}>
+            You are free! 🎉
+          </Body>
+        )}
+        <Pressable onPress={()=>router.push(('/tabs/todo'))}>
+          <Text style={styles.link}>See complete list →</Text>
+        </Pressable>
+      </Card>
 
-      <Pressable  onPress={()=>router.push(('/tabs/todo'))}>
-        <Text style={{color: 'blue', margin: 10}}>See complete list..</Text>
-      </Pressable>
-
-      <View>    
-
-        <Text>Quick checks</Text>
-
-        <Text>Sleep</Text>
-        <View style={{alignItems:'center'}}>
+      <Card>
+        <Subtitle style={{ marginBottom: 10 }}>Quick checks</Subtitle>
+        <Body style={{ marginBottom: 8 }}>Sleep</Body>
+        <View style={{alignItems:'center', marginBottom: 12}}>
           <Stars
             half={false}
             default={sleepStars}
@@ -158,7 +152,7 @@ const Home = () => {
             />
         </View>
 
-        <Text>Energy</Text>
+        <Body style={{ marginBottom: 8 }}>Energy</Body>
         <View style={{alignItems:'center'}}>
           <Stars
             half={false}
@@ -171,7 +165,7 @@ const Home = () => {
             emptyStar={require('../../assets/Images/empty_star.png')}
           />
         </View>
-      </View>
+      </Card>
       
 
 
@@ -190,7 +184,7 @@ const Home = () => {
 
             <TextInput
               style={styles.input}
-              placeholder="Scrie răspunsul tău..."
+              placeholder="Write your response..."
               value={text}
               onChangeText={text => setText(text)}
               multiline={true}
@@ -208,9 +202,9 @@ const Home = () => {
     )}
             {step === 'response' && (
                <>
-          <Text style={styles.modalText}>Mulțumim pentru răspuns! 🌟</Text>
+          <Text style={styles.modalText}>Thanks for your response! 🌟</Text>
           <Text style={{ textAlign: 'center', marginVertical: 10 }}>
-            E important că ai împărtășit asta. Ai vrea să continui analiza mood-ului?
+            It matters that you shared this. Would you like to continue mood analysis?
           </Text>
 
             <TouchableOpacity
@@ -244,77 +238,64 @@ const Home = () => {
 
 
 const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      padding: 20,
-      backgroundColor: '#f0f0f0',    
-    },
-     row: {
-      flexDirection: 'row', 
-    },
-    box: {
-      flex: 1, 
-      justifyContent: 'center',
-    },
-    button:{
-      backgroundColor: 'white',
-      padding: 10,
-      width: '50%'
-    },
-    citat:{
-      fontSize: 18,
-      fontStyle: 'italic',
-      textAlign: 'center',
-      color: 'gray'
-    },
-    list:{
-      fontSize: 20,
-      fontStyle: 'italic'
-    },
-     emojiContainer: { 
+  container:{
+    flex: 1,
+    padding: 20,
+    backgroundColor: theme.colors.background
+  },
+  emojiContainer: { 
     flexDirection: 'row',
     justifyContent: 'space-around', 
     alignItems: 'center',
     marginBottom: 20,
-    paddingHorizontal: 20, // Spațiu de la margini
+    paddingHorizontal: 20
   },
   emoji: { 
     fontSize: 40, 
-    padding: 10, 
+    padding: 10
   }, 
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#181C2F',
     padding: 25,
     borderRadius: 12,
     width: '80%',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2A3152'
   },
   modalText: {
     fontSize: 18,
     marginBottom: 15,
     textAlign: 'center',
+    color: '#E6EAF3'
   },
   closeBtn: {
-    color: 'blue',
+    color: '#5B8DEF',
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 10
   },
   input: {
-  width: '100%',
-  minHeight: 60,
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  padding: 10,
-  marginBottom: 15,
-  textAlignVertical: 'top',
-},
+    width: '100%',
+    minHeight: 60,
+    borderWidth: 1,
+    borderColor: '#2A3152',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+    textAlignVertical: 'top',
+    color: '#E6EAF3'
+  },
+  link: {
+    color: '#5B8DEF',
+    marginTop: 10,
+    fontWeight: '600'
+  }
 })
 
 export default Home

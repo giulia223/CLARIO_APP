@@ -1,0 +1,64 @@
+=====================================================
+  HELP BUDDY - HOW TO RUN THE APP
+=====================================================
+
+You need to run BOTH backend and frontend!
+
+STEP 1: Backend Setup & Run
+----------------------------
+1. Open Terminal 1
+2. Go to backend folder:
+   cd backend
+
+3. Install dependencies (if not already done):
+   npm install
+
+4. Create .env file in backend folder with:
+   MONGO_URI=your_mongodb_connection_string
+   PORT=4000
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_REDIRECT_URI=your_google_redirect_uri
+
+5. Start backend:
+   npm start
+   
+   You should see: "Server running on port 4000"
+
+
+STEP 2: Frontend Setup & Run
+-----------------------------
+1. Open Terminal 2 (keep Terminal 1 running!)
+2. Go to frontend folder:
+   cd frontend
+
+3. Install dependencies (if not already done):
+   npm install
+
+4. Start frontend:
+   npm start
+
+5. Choose how to open:
+   - Press 'i' for iOS
+   - Press 'a' for Android
+   - Press 'w' for Web
+   - Scan QR code with Expo Go app
+
+
+IMPORTANT:
+----------
+- Backend MUST be running before frontend!
+- Keep BOTH terminals running while using the app
+- Backend runs on http://localhost:4000
+- Frontend connects to backend automatically
+
+
+Troubleshooting:
+----------------
+- If backend doesn't start: Check .env file exists and MongoDB is running
+- If frontend can't connect: Make sure backend is running on port 4000
+- If tasks don't save: Check MongoDB connection in .env
+
+=====================================================
+
+

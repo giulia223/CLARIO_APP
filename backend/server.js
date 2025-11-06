@@ -8,6 +8,7 @@ import emotionRecomRoutes from './routes/emotionRecomRoutes.js';
 import favoriteVidRoutes from "./routes/favoriteRoutes.js";
 import userPreferenceRoutes from "./routes/userPreferenceRoutes.js"; 
 import googleRoutes from "./routes/googleRoutes.js";
+import badgeRoutes from "./routes/badgeRoutes.js";
 
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use("/emotions", emotionRecomRoutes);
 app.use("/favorites", favoriteVidRoutes);
 app.use("/api/user", userPreferenceRoutes);
 app.use('/api/google', googleRoutes);
+app.use("/badges", badgeRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
