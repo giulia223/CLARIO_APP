@@ -18,11 +18,13 @@ export const checkForBadge = async (req, res) => {
         const badge = await Badge.findById(id);
         if(badge){ res.json(null);}
         else{
-            const badge = new Badge(
-                id: id,
+            const badge = new Badge({
+                id: id
                 
-            )
+            })
         }
      
+    } catch(err){
+        console.error();
     }
 }
